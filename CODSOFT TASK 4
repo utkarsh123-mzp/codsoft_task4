@@ -1,0 +1,78 @@
+# CODSOFT Python Programming Internship
+# Task 4: Rock-Paper-Scissors Game
+# Description: A game where the user plays against the computer.
+# Submitted by: [UTKARSH UPADHYAY]
+
+import random
+
+def get_computer_choice():
+    """Generates a random choice for the computer[cite: 57]."""
+    return random.choice(['rock', 'paper', 'scissors'])
+
+def determine_winner(user, computer):
+    """
+    Logic: Rock beats scissors, scissors beat paper, paper beats rock[cite: 60].
+    Returns: 'tie', 'user', or 'computer'
+    """
+    if user == computer:
+        return 'tie'
+    
+    # Winning conditions for the User
+    if (user == 'rock' and computer == 'scissors') or \
+       (user == 'scissors' and computer == 'paper') or \
+       (user == 'paper' and computer == 'rock'):
+        return 'user'
+    
+    return 'computer'
+
+def main():
+    # Score Tracking variables 
+    user_score = 0
+    computer_score = 0
+    
+    print("\n--- 🎮 ROCK-PAPER-SCISSORS GAME ---")
+    print("Rules: Rock vs Scissors -> Rock wins")
+    print("       Scissors vs Paper -> Scissors wins")
+    print("       Paper vs Rock -> Paper wins [cite: 60]")
+    
+    while True:
+        # User Input 
+        print("\n" + "-"*30)
+        user_choice = input("Enter your choice (rock, paper, or scissors): ").lower().strip()
+        
+        if user_choice not in ['rock', 'paper', 'scissors']:
+            print("⚠️ Invalid choice! Please try again.")
+            continue
+            
+        # Computer Selection [cite: 58]
+        comp_choice = get_computer_choice()
+        
+        # Determine Result [cite: 59]
+        result = determine_winner(user_choice, comp_choice)
+        
+        # Display Result [cite: 61]
+        print(f"\nUser Choice     : {user_choice.upper()}")
+        print(f"Computer Choice : {comp_choice.upper()}")
+        
+        if result == 'tie':
+            print("🤝 RESULT: It's a Tie!")
+        elif result == 'user':
+            print("✨ RESULT: You Win!")
+            user_score += 1
+        else:
+            print("💀 RESULT: Computer Wins!")
+            computer_score += 1
+            
+        # Display current scores 
+        print(f"\nSCOREBOARD -> YOU: {user_score} | COMPUTER: {computer_score}")
+        
+        # Ask to Play Again 
+        play_again = input("\nDo you want to play another round? (y/n): ").lower().strip()
+        if play_again != 'y':
+            print("\nFinal Score Summary:")
+            print(f"User: {user_score} | Computer: {computer_score}")
+            print("Thanks for playing! Goodbye!")
+            break
+
+if __name__ == "__main__":
+    main()
